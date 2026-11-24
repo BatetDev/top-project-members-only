@@ -1,5 +1,6 @@
 const pool = require('../db/pool');
 const { body, validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
 
 exports.signUpGet = (req, res) => {
   res.render('sign-up', { errors: [], formData: {} });
@@ -37,7 +38,7 @@ const validateSignUp = [
 
 exports.signUpPost = [
   validateSignUp,
-  async (req, res) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
     const { password, confirmPassword, ...formData } = req.body;
 
@@ -46,6 +47,29 @@ exports.signUpPost = [
         .status(400)
         .render('sign-up', { errors: errors.array(), formData });
     }
-    // bcrypt + insert will go here
+
+    try {
+      const passwordHash = await bcrypt.hash(password, 10);
+      await pool.query(
+        `INSERT INTO users (first_name, last_name, username, email, password_hash)
+         VALUES ($1, $2, $3, $4, $5)`,
+        [
+          formData.firstName,
+          formData.lastName,
+          formData.username,
+          formData.email,
+          passwordHash,
+        ],
+      );
+      res.redirect('/log-in');
+    } catch (err) {
+      if (err.code === '23505') {
+        return res.status(400).render('sign-up', {
+          errors: [{ msg: 'Username or email already in use' }],
+          formData,
+        });
+      }
+      next(err);
+    }
   },
 ];
