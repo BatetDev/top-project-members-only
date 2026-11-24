@@ -16,16 +16,17 @@
      </ul>
     <% } %>
     <form class="bg-gray-800 p-1.5" method="POST" action="/sign-up">
-      <input class="input" name="firstName" placeholder="First name" required />
-      <input class="input" name="lastName" placeholder="Last name" required />
+      <input class="input" name="firstName" placeholder="First name" value="<%= formData.firstName || '' %>" required />
+      <input class="input" name="lastName" placeholder="Last name" value="<%= formData.lastName || '' %>" required />
       <input
         class="input"
         name="email"
         type="email"
         placeholder="Email"
+        value="<%= formData.email || '' %>"
         required
       />
-      <input class="input" name="username" placeholder="Username" required />
+      <input class="input" name="username" placeholder="Username" value="<%= formData.username || '' %>" required />
       <input
         class="input"
         name="password"
