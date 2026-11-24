@@ -16,9 +16,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 // ---------- 4. Routes ----------
-app.get('/', async (req, res) => {
-  const result = await pool.query('SELECT NOW()');
-  res.send(result.rows[0].now);
+app.get('/', (req, res) => {
+  res.render('index');
 });
 
 // ---------- 5. Fallbacks (must come after all routes) ----------
