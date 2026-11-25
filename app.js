@@ -2,6 +2,7 @@
 require('dotenv').config();
 const path = require('node:path');
 const express = require('express');
+const session = require('express-session');
 const pool = require('./db/pool');
 const authRouter = require('./routes/authRouter');
 
@@ -15,6 +16,13 @@ app.set('view engine', 'ejs');
 // ---------- Middleware (runs on every request, in this order) ----------
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET, // signs the session cookie
+    resave: false, // don't re-save a session that didn't change
+    saveUninitialized: false, // don't create a session until something is stored in it
+  }),
+);
 
 // ---------- Routes ----------
 app.use('/', authRouter); // /sign-up, /log-in, /log-out
