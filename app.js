@@ -3,6 +3,8 @@ require('dotenv').config();
 const path = require('node:path');
 const express = require('express');
 const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 const pool = require('./db/pool');
 const authRouter = require('./routes/authRouter');
 
@@ -23,6 +25,7 @@ app.use(
     saveUninitialized: false, // don't create a session until something is stored in it
   }),
 );
+app.use(passport.session()); // reads the session on each request and sets req.user
 
 // ---------- Routes ----------
 app.use('/', authRouter); // /sign-up, /log-in, /log-out
