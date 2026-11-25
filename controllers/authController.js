@@ -26,6 +26,7 @@ const validateSignUp = [
     .toLowerCase(),
   body('username')
     .trim()
+    .toLowerCase()
     .notEmpty()
     .withMessage('Username is required')
     .isLength({ max: 50 })
