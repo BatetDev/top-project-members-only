@@ -85,6 +85,15 @@ exports.logInPost = passport.authenticate('local', {
   failureRedirect: '/log-in',
 });
 
+exports.logOut = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err); // Pass to error handler
+    }
+    res.redirect('/');
+  });
+};
+
 /*
 router.get('/log-in', authController.logInGet);
 router.post('/log-in', authController.logInPost); // passport.authenticate(...)

@@ -10,7 +10,9 @@
     <h1 class="text-3xl font-bold">Members Only</h1>
     <% if (locals.currentUser) { %>
       <p>Welcome back, <%= currentUser.username %>! You are logged in.</p>
-    <!-- We will add the logout link in the next step -->
+      <form action="/log-out" method="POST" class="mt-4">
+        <button class="btn bg-red-600 hover:bg-red-700 text-white" type="submit">Log Out</button>
+      </form>
     <% } else { %>
     <p>Welcome, guest! Please <a href="/log-in">log in</a>.</p>
     <% } %>
