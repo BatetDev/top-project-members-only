@@ -8,6 +8,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const pool = require('./db/pool');
 const authRouter = require('./routes/authRouter');
+const clubRouter = require('./routes/clubRouter');
 
 // ---------- App and config ----------
 const app = express();
@@ -40,7 +41,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/', authRouter); // /sign-up, /log-in, /log-out
-// app.use('/club', clubRouter);      // /club/join, /club/admin
+app.use('/club', clubRouter); // /club/join, /club/admin
 // app.use('/', messagesRouter);      // /, /new, /:id/delete
 
 // ---------- Fallbacks (must come after all routes) ----------

@@ -93,8 +93,3 @@ exports.logOut = (req, res, next) => {
     res.redirect('/');
   });
 };
-
-/*
-router.get('/log-in', authController.logInGet);
-router.post('/log-in', authController.logInPost); // passport.authenticate(...)
-*/
