@@ -1,5 +1,6 @@
 // ---------- Setup: environment and imports ----------
 require('dotenv').config();
+require('./config/passport'); // Load the strategy configuration
 const path = require('node:path');
 const express = require('express');
 const session = require('express-session');
@@ -26,8 +27,18 @@ app.use(
   }),
 );
 app.use(passport.session()); // reads the session on each request and sets req.user
+// Make the logged-in user available to ALL EJS templates
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user; // If logged, this is the user object. Otherwise, it's undefined.
+  next();
+});
 
 // ---------- Routes ----------
+app.get('/', (req, res) => {
+  // TEMP
+  res.render('index');
+});
+
 app.use('/', authRouter); // /sign-up, /log-in, /log-out
 // app.use('/club', clubRouter);      // /club/join, /club/admin
 // app.use('/', messagesRouter);      // /, /new, /:id/delete

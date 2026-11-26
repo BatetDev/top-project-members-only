@@ -5,6 +5,8 @@ const pool = require('../db/pool');
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
+    console.log('🔥 LOCAL STRATEGY TRIGGERED!');
+    console.log('Username received:', username);
     try {
       const { rows } = await pool.query(
         'SELECT * FROM users WHERE username = $1',

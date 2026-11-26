@@ -1,6 +1,7 @@
 const pool = require('../db/pool');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 
 exports.signUpGet = (req, res) => {
   res.render('sign-up', { errors: [], formData: {} });
@@ -74,3 +75,17 @@ exports.signUpPost = [
     }
   },
 ];
+
+exports.logInGet = (req, res) => {
+  res.render('log-in', { errors: [], formData: {} });
+};
+
+exports.logInPost = passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/log-in',
+});
+
+/*
+router.get('/log-in', authController.logInGet);
+router.post('/log-in', authController.logInPost); // passport.authenticate(...)
+*/

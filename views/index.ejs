@@ -8,5 +8,11 @@
   </head>
   <body class="bg-gray-900 text-emerald-300 p-2">
     <h1 class="text-3xl font-bold">Members Only</h1>
+    <% if (locals.currentUser) { %>
+      <p>Welcome back, <%= currentUser.username %>! You are logged in.</p>
+    <!-- We will add the logout link in the next step -->
+    <% } else { %>
+    <p>Welcome, guest! Please <a href="/log-in">log in</a>.</p>
+    <% } %>
   </body>
 </html>
