@@ -16,14 +16,28 @@
      </ul>
     <% } %>
     <form class="bg-gray-800 p-1.5" method="POST" action="/log-in">
-      <input class="input" name="username" placeholder="Username" value="<%= formData.username || '' %>" required />
+      <label for="username">Username</label>
       <input
         class="input"
+        id="username"
+        name="username"
+        placeholder="Username"
+        autocomplete="username"
+        value="<%= locals.formData?.username || '' %>"
+        required
+      />
+
+      <label for="password">Password</label>
+      <input
+        class="input"
+        id="password"
         name="password"
         type="password"
         placeholder="Password"
+        autocomplete="current-password"
         required
       />
+
       <button class="btn" type="submit">Log In</button>
     </form>
   </body>

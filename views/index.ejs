@@ -10,11 +10,14 @@
     <h1 class="text-3xl font-bold">Members Only</h1>
     <% if (locals.currentUser) { %>
       <p>Welcome back, <%= currentUser.username %>! You are logged in.</p>
+
+      <a href="/messages/new">Create a new message</a>
+
       <form action="/log-out" method="POST" class="mt-4">
         <button class="btn bg-red-600 hover:bg-red-700 text-white" type="submit">Log Out</button>
       </form>
     <% } else { %>
-    <p>Welcome, guest! Please <a href="/log-in">log in</a>.</p>
+      <p>Welcome, guest! Please <a href="/log-in">log in</a>.</p>
     <% } %>
-  </body>
+    </body>
 </html>

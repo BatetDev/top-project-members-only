@@ -19,11 +19,14 @@
     <% } %>
 
     <form class="bg-gray-800 p-1.5" method="POST" action="/club/join">
+      <label for="passcode">Passcode</label>
       <input
         class="input"
+        id="passcode"
         name="passcode"
         type="password"
         placeholder="Secret passcode"
+        autocomplete="off"
         required
       />
       <button class="btn" type="submit">Join the club</button>
