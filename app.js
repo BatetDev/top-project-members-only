@@ -36,9 +36,13 @@ app.use((req, res, next) => {
 });
 
 // ---------- Routes ----------
-app.get('/', (req, res) => {
-  // TEMP
-  res.render('index');
+app.get('/', async (req, res) => {
+  const { rows } = await pool.query(`
+      SELECT messages.id, messages.title, messages.body, messages.created_at, users.username
+      FROM messages
+      JOIN users ON messages.user_id = users.id
+      ORDER BY messages.created_at DESC`);
+  res.render('index', { messages: rows });
 });
 
 app.use('/', authRouter); // /sign-up, /log-in, /log-out

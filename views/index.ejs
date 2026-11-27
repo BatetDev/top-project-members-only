@@ -19,5 +19,24 @@
     <% } else { %>
       <p>Welcome, guest! Please <a href="/log-in">log in</a>.</p>
     <% } %>
+    <% if (messages.length === 0) { %>
+  <p>No messages yet.</p>
+<% } else { %>
+  <ul>
+    <% messages.forEach((message) => { %>
+      <li>
+        <h2><%= message.title %></h2>
+        <p><%= message.body %></p>
+
+        <% if (locals.currentUser && currentUser.is_member) { %>
+          <p>
+            By <%= message.username %> on
+            <%= message.created_at.toLocaleDateString() %>
+          </p>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
     </body>
 </html>
