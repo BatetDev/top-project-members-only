@@ -36,3 +36,14 @@ exports.newPost = [
     }
   },
 ];
+
+// POST /messages/:id/delete -> admins only
+exports.deletePost = async (req, res, next) => {
+  try {
+    const messageId = req.params.id;
+    await pool.query('DELETE FROM messages WHERE id = $1', [messageId]);
+    res.redirect('/');
+  } catch (err) {
+    next(err);
+  }
+};
